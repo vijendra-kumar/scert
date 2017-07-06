@@ -1,0 +1,62 @@
+{% extends 'BaseTeacherLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<div class="container" style="padding-top: 25px;padding-bottom: 10px;margin-top: 10px;">
+    <div class="well well-sg" style="height: 60px;text-align: center;margin-bottom: 0px">
+          <h3 style="letter-spacing: 0px">{{heading}} <b>{{training}} </b></h3>
+    </div>
+    </div>
+    <div class="container">
+  <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>TRAINING</th>
+        <th>START DATE</th>
+        <th>END DATE</th>
+{%if whichTraining == "register"%}        
+        <th>REGISTER</th>       
+{%endif%}         
+      </tr>
+    </thead>
+{%for te in trainings%}
+{%if whichTraining == "register"%}
+{%if te.trainingStatus == te.NOMINATED%}
+ 
+      <tbody>
+      <tr class="success">
+        <td>{{te.trainingPlanDetailId.traingId.name}}</td>
+        <td>{{te.trainingPlanDetailId.start_date}}</td>
+        <td>{{te.trainingPlanDetailId.end_date}}</td>
+        <td><a href="{% url 'teachertraining:Register' te.id%}">Register</a></td>
+      </tr>      
+    </tbody>
+{%endif%}
+{%elif whichTraining == "inProgress"%}
+{%if te.trainingStatus != te.COMPLETE%}
+  
+      <tbody>
+      <tr class="success">
+        <td>{{te.trainingPlanDetailId.traingId.name}}</td>
+        <td>{{te.trainingPlanDetailId.start_date}}</td>
+        <td>{{te.trainingPlanDetailId.end_date}}</td>
+      </tr>      
+    </tbody>
+{%endif%}
+{%elif whichTraining == "complete"%}
+{%if te.trainingStatus == te.COMPLETE%}
+      <tbody>
+      <tr class="success">
+        <td>{{te.trainingPlanDetailId.traingId.name}}</td>
+        <td>{{te.trainingPlanDetailId.start_date}}</td>
+        <td>{{te.trainingPlanDetailId.end_date}}</td>
+      </tr>      
+    </tbody>
+{%endif%}
+{%endif%}
+{%endfor%}
+  </table>
+</div>
+
+{%endblock%}

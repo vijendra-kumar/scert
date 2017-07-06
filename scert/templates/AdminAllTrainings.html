@@ -1,0 +1,53 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<style type="text/css">
+	table.dataTable.select tbody tr,
+table.dataTable thead th:first-child {
+  cursor: pointer;
+}
+</style>>
+<script>
+$(document).ready(function() {
+
+    $('.table').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            targets:   0
+        } ],
+        order: [[ 1, 'asc' ]]
+    } );
+    });
+</script>
+<div class="container " style="padding-top: 25px;padding-bottom: 10px">
+<div class="well well-sg" style="height: 60px;text-align: center;margin-bottom: 0px" >
+          <h3>ALL TRAININGS</h3>
+</div>
+</div>
+<div class="container" style="padding-top: 0px">
+  <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+      <th>TRAINING ID</th>
+        <th>TRAINING NAME</th>
+        <th>TRAINING DURATION</th>
+        <th>TRAINING TYPE</th>       
+        <th>FUNDING SUBJECT</th>        
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in lAll%}
+      <tr>
+        <td>{{itr.id}}</td>
+        <td>{{itr.name}}</td>
+        <td>{{itr.duration}}</td>
+        <td>{{itr.type}}</td>
+        <td>{{itr.subject}}</td>
+      </tr>      
+{%endfor%}
+
+  </table>  
+</div>
+{%endblock%}

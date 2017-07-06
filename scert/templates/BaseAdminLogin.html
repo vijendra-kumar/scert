@@ -1,0 +1,260 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>SCERT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css">  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js"></script>  
+
+
+  <style>
+  body {
+      font: 400 15px/1.8 Lato, sans-serif;
+      color: #777;
+  }
+  h3, h4 {
+      margin: 10px 0 30px 0;
+      letter-spacing: 0px;
+      font-size: 20px;
+      color: #111;
+  }
+  table {
+    font-size: 11px;
+  }
+  .container {
+      padding: 40px 0px;
+  }
+  .person {
+      border: 10px solid transparent;
+      margin-bottom: 25px;
+      width: 80%;
+      height: 80%;
+      opacity: 0.7;
+  }
+  .person:hover {
+      border-color: #f1f1f1;
+  }
+  .carousel-inner img {
+      -webkit-filter: grayscale(90%);
+      filter: grayscale(90%); /* make all photos black and white */
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+  }
+  .carousel-caption h3 {
+      color: #fff !important;
+  }
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+    }
+  }
+  .bg-1 {
+      background: #2d2d30;
+      color: #bdbdbd;
+  }
+  .bg-1 h3 {color: #fff;}
+  .bg-1 p {font-style: italic;}
+  .list-group-item:first-child {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+  }
+  .list-group-item:last-child {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+  }
+  .thumbnail {
+      padding: 0 0 15px 0;
+      border: none;
+      border-radius: 0;
+  }
+  .thumbnail p {
+      margin-top: 15px;
+      color: #555;
+  }
+  .btn {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #f1f1f1;
+      border-radius: 0;
+      transition: .2s;
+  }
+  .btn:hover, .btn:focus {
+      border: 1px solid #333;
+      background-color: #fff;
+      color: #000;
+  }
+  .modal-header, h4, .close {
+      background-color: #333;
+      color: #fff !important;
+      text-align: center;
+      font-size: 30px;
+  }
+  .modal-header, .modal-body {
+      padding: 40px 50px;
+  }
+  .nav-tabs li a {
+      color: #777;
+  }
+  #googleMap {
+      width: 100%;
+      height: 400px;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+  }
+  .navbar {
+      font-family: Montserrat, sans-serif;
+      margin-bottom: 0;
+      background-color: #417690;
+      border: 0;
+      font-size: 11px !important;
+      letter-spacing: 4px;
+      opacity: 0.9;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #d5d5d5 !important;
+  }
+  .navbar-nav li a:hover {
+      color: #fff !important;
+  }
+  .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #417690 !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+  }
+  .open .dropdown-toggle {
+      color: #fff;
+      background-color: #555 !important;
+  }
+  .dropdown-menu li a {
+      color: #000 !important;
+  }
+  .dropdown-menu li a:hover {
+      background-color: red !important;
+  }
+  footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #417690;
+      color: #f5f5f5;
+      padding: 5px;
+      margin-bottom: 0px;
+  }
+  footer a {
+      color: #f5f5f5;
+  }
+  footer a:hover {
+      color: #777;
+      text-decoration: none;
+  }
+
+  .form-control {
+      border-radius: 0;
+  }
+  textarea {
+      resize: none;
+  }
+  div.transbox {
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+div.transbox p {
+  margin: 5%;
+  font-weight: bold;
+  color: #000000;
+}
+  .bg-3 {
+      background-color: #417690; /* White */
+      color: #555555;
+  }
+  </style>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/tt/home">SCERT</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/tt/home">HOME</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">TEACHER TRAINING
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/tt/AllTrainings">ALL TRAININGS</a></li>                    
+            <li><a href="/tt/Worklist">TRAINING PLANS</a></li>            
+            <li><a href="/tt/TeachersEnquiry">TEACHER ENQUIRY</a></li>
+            <li><a href="/tt/TrainingEnquiry">TRAINING ENQUIRY</a></li>                        
+          </ul>
+        </li>
+        <li><a href="/tt/Worklist">WORKLIST</a></li>
+        <li style="letter-spacing: 0px"><a href="/admin">Go to admin site</a></li>        
+        <li><a href="#tour">{{user.username}}</a></li>
+        <li><a href="/tt/Logout">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<div id="band" class="container text-center" style="margin-top: 70px;padding-right: 80px;padding-left: 80px">
+  <h3 style="letter-spacing: 5px">SCERT Training Portal</h3>
+  <p>Single point for managing all trainings</p>
+  <br>
+  <div class="row">
+    <div class="col-sm-4 bg-3" id="tets">
+      <a href="/tt/TeachersEnquiry/">
+        <div class="transbox">
+          <p>TEACHER ENQUIRY</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-4 bg-3" id="tets">
+      <a href="/tt/TrainingEnquiry/">
+        <div class="transbox">
+          <p>TRAINING ENQUIRY</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-sm-4 bg-3" id="tets">
+      <a href="/tt/Worklist/">
+        <div class="transbox">
+          <p>TRAINING PLANS</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{%endblock%}
+<!-- Footer -->
+<footer class="text-center">
+  <p>SCERT</p>
+</footer>
+
+
+</body>
+</html>

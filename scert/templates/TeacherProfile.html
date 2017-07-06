@@ -1,0 +1,48 @@
+{% extends 'BaseTeacherLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<div class="container ">
+{%if flag == 'false'%}
+    <div class="well well-sm">
+          <p>Teacher Profile not available. It is advisable to update your profile. Please update by clicking <a href="">here</a></p>
+    </div>
+{%else%}
+    <div class="well well-sm text-center">
+          <p>Your profile information</p>
+    </div>
+  <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>                        
+        <th>EMAIL</th>                        
+        <th>PHONE NO</th>  
+        <th>AADHAR NO</th>                                                      
+      </tr>
+    </thead>
+
+  
+      <tbody class="table-striped ">
+      <tr class="success">
+        <td>{{profile.name}}</td>
+        <td>{{profile.empId}}</td>
+        <td>{{profile.age}}</td>
+        <td>{{profile.joining_date}}</td>
+        <td>{{profile.last_promotion_date}}</td>
+        <td>{{profile.subject}}</td>
+        <td>{{profile.email}}</td>                        
+        <td>{{profile.phone}}</td>
+        <td>{{profile.aadhar_no}}</td>        
+      </tr>      
+    </tbody>
+{%endif%}
+  </table>
+</div>
+
+{%endblock%}

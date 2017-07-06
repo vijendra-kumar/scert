@@ -1,0 +1,70 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<style type="text/css">
+	table.dataTable.select tbody tr,
+table.dataTable thead th:first-child {
+  cursor: pointer;
+}
+</style>>
+<script>
+$(document).ready(function() {
+
+    $('.table').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            targets:   0
+        } ],
+        order: [[ 1, 'asc' ]]
+    } );
+    });
+</script>
+<div class="container " style="padding-top: 25px;padding-bottom: 10px">
+<div class="well well-sg" style="height: 60px;text-align: center;margin-bottom: 0px" >
+          <h3>TRAINING DETAILS</h3>
+</div>
+  <form action="{% url 'teachertraining:TrainingEnquiry' %}" method="POST" ><br>
+  {% csrf_token %}
+  Training id:
+    <input name="training_id">
+    <input type="submit" value="submit">
+  </form>
+</div>
+<div class="container" style="padding-top: 0px; font-size: 11px">
+  <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+      <th>EMPID</th>
+      <th>AGE</th>
+      <th>JOINING DATE</th>
+      <th>LAST PROMOTION DATE</th>
+      <th>SUBJECT</th>
+        <th>TRAINING STATUS</th>
+        <th>DATE STARTED</th>
+        <th>ENDING DATE </th>
+        <th>TRAINING PLAN</th>       
+        <th>FUNDING SOURCE</th>        
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpd%}
+{%for itr1 in itr.trainingplanenrollment_set.all%}
+      <tr>
+        <td>{{itr1.teacherId.empId}}</td>
+        <td>{{itr1.teacherId.age}}</td>
+        <td>{{itr1.teacherId.joining_date}}</td>        
+        <td>{{itr1.teacherId.last_promotion_date}}</td>        
+        <td>{{itr1.teacherId.subject}}</td>        
+        <td>{{itr1.trainingStatus}}</td>
+        <td>{{itr1.trainingPlanDetailId.start_date}}</td>
+        <td>{{itr1.trainingPlanDetailId.end_date}}</td>
+        <td>{{itr1.trainingPlanDetailId.traininPlanId.name}}</td>
+        <td>{{itr1.trainingPlanDetailId.fundingSource}}</td>
+      </tr>      
+{%endfor%}
+{%endfor%}
+  </table>  
+</div>
+{%endblock%}

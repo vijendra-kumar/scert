@@ -1,0 +1,16 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+<div class="container " style="padding-top: 50px">
+<div class="well well-sg" style="height: 60px;text-align: center;margin-bottom: 0px" >
+          <h3>TEACHER TRAINING DETAILS</h3>
+</div>
+  <form action="{% url 'teachertraining:TeachersEnquiry' %}" method="POST" ><br>
+  {% csrf_token %}
+  Employee id of Teacher:
+    <input name="teacher_empId">
+    <input type="submit" value="submit">
+  </form>
+</div>
+{%endblock%}

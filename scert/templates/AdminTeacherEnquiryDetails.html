@@ -1,0 +1,65 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<style type="text/css">
+	table.dataTable.select tbody tr,
+table.dataTable thead th:first-child {
+  cursor: pointer;
+}
+</style>>
+<script>
+$(document).ready(function() {
+
+    $('.table').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            targets:   0
+        } ],
+        order: [[ 1, 'asc' ]]
+    } );
+    });
+</script>
+<div class="container " style="padding-top: 25px;padding-bottom: 10px">
+<div class="well well-sg" style="height: 60px;text-align: center;margin-bottom: 0px" >
+          <h3>TEACHER TRAINING DETAILS</h3>
+</div>
+  <form action="{% url 'teachertraining:TeachersEnquiry' %}" method="POST" ><br>
+  {% csrf_token %}
+  Employee id of Teacher:
+    <input name="teacher_empId">
+    <input type="submit" value="submit">
+  </form>
+</div>
+<div class="container" style="padding-top: 0px">
+  <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+      <th>TRAINING ID</th>
+        <th>TRAINING NAME</th>
+        <th>STATUS</th>
+        <th>TRAINING TYPE</th>
+        <th>START DATE</th>
+        <th>ENDING DATE </th>
+        <th>TRAINING PLAN</th>       
+        <th>FUNDING SOURCE</th>        
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+      <tr>
+        <td>{{itr.trainingPlanDetailId.traingId.id}}</td>
+        <td>{{itr.trainingPlanDetailId.traingId.name}}</td>
+        <td>{{itr.trainingStatus}}</td>
+        <td>{{itr.trainingPlanDetailId.traingId.type}}</td>
+        <td>{{itr.trainingPlanDetailId.start_date}}</td>
+        <td>{{itr.trainingPlanDetailId.end_date}}</td>
+        <td>{{itr.trainingPlanDetailId.traininPlanId.name}}</td>
+        <td>{{itr.trainingPlanDetailId.fundingSource}}</td>
+      </tr>      
+{%endfor%}
+
+  </table>  
+</div>
+{%endblock%}

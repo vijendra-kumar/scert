@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="{% url 'teachertraining:assignTraining' pk%}" method="POST">
+{% csrf_token %}
+<h1>{{tp.name}}: Teacher enrollments</h1>
+{%for i in tpDetails%}
+<h2>Enter empid of teachers to be enrolled for {{i.traingId}}:</h2>
+<textarea rows="4" cols="50" name="{{i.traingId}}">
+</textarea>
+{% endfor %}
+<input type="submit" value="submit">
+</form>
+
+
+</body>
+</html>

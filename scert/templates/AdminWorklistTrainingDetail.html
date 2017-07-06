@@ -1,0 +1,479 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<style type="text/css">
+	table.dataTable.select tbody tr,
+table.dataTable thead th:first-child {
+  cursor: pointer;
+}
+</style>>
+<script>
+$(document).ready(function() {
+
+    $('.table').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            targets:   0
+        } ],
+        order: [[ 1, 'asc' ]]
+    } );
+
+      $('#id_teachers').change(function () {
+          var form = $(this).closest("form");
+                $.ajax({
+                  type:'POST',
+                  url:form.attr("data-validate-teachers-url"),
+                  data: form.serialize(),
+                  dataType: 'json',
+                  success: function (data) {
+                    if (data.already_enrolled.length || data.notValid_teacher.length) {
+                      alert(data.already_enrolled.concat(data.notValid_teacher));
+                    }
+                  }
+
+              });
+    });
+
+
+
+
+
+} );
+
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+      function ApproveRegistration(enrollmentid) {
+                $.ajax({
+                  type:'POST',
+                  url:'/tt/ApproveRegistration/',
+                  data: {'enrollmentid' :enrollmentid},
+                  dataType: 'json',
+                  success: function (data) {
+                  }
+
+              });
+    }
+
+      function ReviewPreRequisite(enrollmentid) {
+                $.ajax({
+                  type:'POST',
+                  url:'/tt/ReviewPreRequisite/',
+                  data: {'enrollmentid' :enrollmentid},
+                  dataType: 'json',
+                  success: function (data) {
+                  }
+
+              });
+    }
+
+    ReviewPreRequisite
+
+function registered() {
+  document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "none";         	
+   document.getElementById("registered").style.display = "inline-table";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";   
+}
+function pre() {
+  document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "none";         	
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "inline-table";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";       
+}
+function main() {
+  document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "none";         	
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "inline-table";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";           
+}
+function post() {
+  document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "none";         	
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "inline-table";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";             
+}
+function unregistered() {
+  document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "inline-table";         	
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";             
+}
+function complete() {
+  document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "none";         	
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "inline-table";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";             
+}
+function na() {
+   document.getElementById("enroll").style.display = "none";       
+   document.getElementById("unregistered").style.display = "none";         	
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "inline-table";               
+   document.getElementById("usage").style.display = "none";             
+}
+function enroll() {
+   document.getElementById("enroll").style.display = "block";          
+   document.getElementById("unregistered").style.display = "none";             
+   document.getElementById("registered").style.display = "none";
+   document.getElementById("pre").style.display = "none";
+   document.getElementById("main").style.display = "none";
+   document.getElementById("post").style.display = "none";         
+   document.getElementById("complete").style.display = "none";         
+   document.getElementById("na").style.display = "none";               
+   document.getElementById("usage").style.display = "none";             
+}
+</script>
+<div class="well well-sg" style="height: 60px;margin-bottom: 0px">
+          <h3>Worklist for <strong><a href="/tt/WorklistTrainings/{{ltpd.traininPlanId.id}}">{{ltpd.traininPlanId.name}}</a> > {{training.name}}</strong></h3>
+</div>
+<div class="container-fluid">
+<div class="row">
+
+<div class="col-sm-2 btn-group btn-group-vertical">
+<br>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="enroll()">Enroll Teachers</button>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="unregistered()">Unregistered</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="registered()"">Registered</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="pre()">Prerequisite</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="main()">Main Training</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="post()"">Postrequisite</button>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="complete()">Complete</button>
+  </div>  
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="na()">Not Applicable</button>
+  </div>    
+</div>
+
+<div class="col-sm-10" id="usage">
+<ul >
+<br>
+  <li><strong>Enroll Teachers</strong>: Enroll teachers for training</li>
+	<li><strong>Unregistered Teachers</strong>: View all teachers who are nominated but have not registered for training</li>
+	<li><strong>Registered Teachers</strong>: View all teachers who have registered for a training</li>
+	<li><strong>Prerequisite Training</strong>: View all submitted prerequisite trainings and take action(approve/review)</li>	
+	<li><strong>Main Training</strong>: View all teachers who have completed main training</li>	
+	<li><strong>Postrequisite Training</strong>: View all submitted prerequisite trainings and take action(approve/review)</li>	
+	<li><strong>Complete Training</strong>: View all teachers who have completed the training</li>		
+	<li><strong>Not Applicable</strong>: View all teachers who have been nominated but were not approved to do the training</li>			
+</ul>
+</div>
+
+<div class="col-sm-10" id="enroll" style="display: none;">
+  <form action="{% url 'teachertraining:assignTraining' ltpd.id %}" data-validate-teachers-url="{% url 'teachertraining:validate_Teachers' ltpd.id%}" method="POST" >
+  {% csrf_token %}
+  <h3>Enter Employee id of Teachers to be enrolled:</h3>
+  <h5><i>Separate emp ids by commas(,) in case more than one teacher is to be enrolled</i></h5>
+    <textarea name="teachers_empId" rows="4" cols="100" id="id_teachers" ></textarea><br>
+    <input type="submit" value="submit">
+  </form>
+</div>
+
+<div class="col-sm-10" id="registered" style="display: none;">
+<div><h3 style="letter-spacing: 1px">REGISTERED:</h3></div>
+  <table class="table table-bordered table-striped table-hover display" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.REGISTRATIONDONE%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+        <td>
+            <button type="button" onclick="ApproveRegistration({{itr.id}})">Approve</button>
+            <button type="button" id="RejectRegistration">Reject</button>
+      </tr>      
+{%endif%}
+{%endfor%}
+
+  </table>  
+</div>
+
+<div class="col-sm-10" id="pre" style="display: none;">
+<div><h3 style="letter-spacing: 1px">PRE REQUISITE:</h3></div>
+  <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>    
+        <th>REVIEW</th>                    
+      </tr>
+    </thead>
+   <tbody>
+
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.PRETRAININGREQUISITE and itr.TrainingPrerequisiteStatus == itr.SUBMITTED%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+        <td><a href="/tt/MoveToMainTraining/{{itr.id}}">Approve</a>
+        <!--button type="button" onclick="ReviewPreRequisite({{itr.id}})">Review</button--></td>
+      </tr>      
+{%endif%}
+{%endfor%}
+    </tbody>
+  </table>  
+</div>
+
+<div class="col-sm-10" id="main"  style="display: none;">
+<div><h3 style="letter-spacing: 1px">MAIN TRAINING:</h3></div>
+    <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>       
+        <th>MARK AS COMPLETE</th>                 
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.MAINTRAINING%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+        <td><a href="/tt/MoveToPost/{{itr.id}}">Mark as complete</a></td>
+      </tr>      
+{%endif%}
+{%endfor%}
+    </tbody>
+  </table>  
+</div>
+
+<div class="col-sm-10" id="unregistered"  style="display: none;">
+<div><h3 style="letter-spacing: 1px">UNREGISTERED:</h3></div>
+    <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>         
+        <th>ACTION</th>               
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.NOMINATED%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+        <td><button type="button">Sent notification again</button></td>
+      </tr>      
+{%endif%}
+{%endfor%}
+    </tbody>
+  </table>  
+</div>
+
+<div class="col-sm-10" id="complete"  style="display: none;">
+<div><h3 style="letter-spacing: 1px">COMPLETE:</h3></div>
+    <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>                        
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.COMPLETE%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+      </tr>      
+{%endif%}
+{%endfor%}
+    </tbody>
+  </table>  
+</div>
+
+<div class="col-sm-10" id="na"  style="display: none;">
+<div><h3 style="letter-spacing: 1px">NOT APPLICABLE:</h3></div>
+    <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>                        
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.DISQUALIFIED%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+      </tr>      
+{%endif%}
+{%endfor%}
+    </tbody>
+  </table>  
+</div>
+
+<div class="col-sm-10" id="post"  style="display: none;">
+<div><h3 style="letter-spacing: 1px">POST REQUISITE:</h3></div>
+    <table class="table table-bordered table-striped table-hover" >
+      <thead>
+      <tr>
+        <th>NAME</th>
+        <th>EMPLOYEE ID</th>
+        <th>AGE</th>
+        <th>JOINING DATE</th>       
+        <th>LAST PROMOTION DATE</th>        
+        <th>SUBJECT</th>          
+        <th>ACTION</th>              
+      </tr>
+    </thead>
+    <tbody>
+{%for itr in tpe%}
+{%if itr.trainingStatus == itr.POSTTRAININGREQUISITE and itr.TrainingPostrequisiteStatus == itr.SUBMITTED%}
+      <tr>
+        <td>{{itr.teacherId.name}}</td>
+        <td>{{itr.teacherId.empId}}</td>
+        <td>{{itr.teacherId.age}}</td>
+        <td>{{itr.teacherId.joining_date}}</td>
+        <td>{{itr.teacherId.last_promotion_date}}</td>
+        <td>{{itr.teacherId.subject}}</td>
+        <td><a href="/tt/MoveToComplete/{{itr.id}}">Approve</a></td>
+      </tr>      
+{%endif%}
+{%endfor%}
+    </tbody>
+  </table>  
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{%endblock%}

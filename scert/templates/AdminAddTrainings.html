@@ -1,0 +1,23 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+<!-- Container (The Band Section) -->
+<div class="container ">
+
+
+    <form action="/tt/AddTraining/" method="POST">
+        {% csrf_token %}
+
+
+        {{form.as_ul}}
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Save</button>
+    </div>
+  </div>
+</form>
+
+</div>
+
+{%endblock%}

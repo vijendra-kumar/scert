@@ -1,0 +1,49 @@
+{% extends 'BaseAdminLogin.html' %}
+
+
+{%block content%}
+
+<div class="container ">
+{%if tpDetails is None%}
+
+    <div class="well well-sm" style="margin-top: px">
+          <p>No Trainings available under training plan <strong>{{tp.name}}</strong></p>
+    </div>
+{%else%}
+
+    <div class="well well-sm text-center" style="margin-top: 11px">
+          <p><strong>{{tp.name}}:</strong>Choose Training</p>
+    </div>
+
+  <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>TRAINING NAME</th>
+        <th>DURATION</th>
+        <th>TYPE</th>
+        <th>SUBJECT</th>
+        <th>START DATE</th>
+        <th>END DATE</th>
+        <th>TRAINING FUNDING</th>
+      </tr>
+    </thead>
+      <tbody>    
+{%for te in tpDetails%}
+      
+
+      <tr>
+        <td><a href="/tt/WorklistTrainingDetail/{{te.id}}">{{te.traingId.name}}</a></td>
+        <td>{{te.traingId.duration}}</td>
+        <td>{{te.traingId.type_of_training}}</td>
+        <td>{{te.traingId.subject}}</td>        
+        <td>{{te.start_date}}</td>
+        <td>{{te.end_date}}</td>
+        <td>{{te.fundingSource}}</td>        
+      </tr>      
+
+    {%endfor%}
+    </tbody>    
+{%endif%}
+</table>
+</div>
+{%endblock%}
